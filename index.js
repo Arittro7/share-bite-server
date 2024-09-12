@@ -12,8 +12,8 @@ const app = express();
 const corsOptions = {
     origin: [
       'http://localhost:5173', 
-    'http://localhost:5174',
-    // 'https://art-food-auth.web.app'
+      'http://localhost:5174',
+      
   ],
     credentials: true,
     optionSuccessStatus: 200,
@@ -47,9 +47,6 @@ const verifyToken = (req, res, next)=>{
 }
 
 
-
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qhiqbma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.wv413.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 
@@ -71,7 +68,7 @@ async function run() {
     const reviewCollection = client.db('artFood').collection('review');
     const registersCollection = client.db('artFood').collection('register');
     const categoryCollection = client.db("artFood").collection("categories");
-
+    
 
     //jwt generate
     app.post('/jwt', async(req, res) => {
@@ -333,7 +330,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) =>{
-    res.send('Hello from Art Food Server...')
+    res.send('Hello from Arittro s Food Server...')
 })
 
 app.listen(port, ()=>console.log(`Server running on port ${port}`))
