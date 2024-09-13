@@ -12,10 +12,8 @@ const app = express();
 const corsOptions = {
     origin: [
       'http://localhost:5173', 
-      'http://localhost:5174',
       'https://share-bite-ph11.web.app',
-      'https://share-bite-ph11.firebaseapp.com',
-      'https://share-bite.netlify.app/'    
+      // 'https://share-bite-ph11.firebaseapp.com',     
   ],
     credentials: true,
     optionSuccessStatus: 200,
@@ -79,18 +77,26 @@ async function run() {
       const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: '1hr'
       })
+
       res.cookie('token', token, {
         httpOnly: true,
-        sameSite: process.env.NODE_ENV==='production'?'none':'strict',
-        secure: process.env.NODE_ENV==='production' ? true : false,
-      }).send({success: true})
+        secure: process.env.NODE_ENV === 'production', // `false` for localhost
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+      }).send({ success: true });
+      
+
+      // res.cookie('token', token, {
+      //   httpOnly: true,
+      //   secure: process.env.NODE_ENV==='production',
+      //   sameSite: process.env.NODE_ENV==='production'?'none':'strict',
+      // }).send({success: true})
     })
 
     //Clear token on logout
     app.get('/logout', (req, res)=>{
       res.clearCookie('token',{
         httpOnly: true,
-        secure: process.env.NODE_ENV==='production' ?  true : false,
+        secure: process.env.NODE_ENV==='production',
         sameSite: process.env.NODE_ENV==='production'?'none':'strict',
         maxAge:0,
       }).send({success: true});
@@ -198,6 +204,12 @@ async function run() {
        
     });
     
+    // Redirect to login page if user is not logged in
+    // app.get('/food-purchase', authenticateUser, (req, res) => {
+    //   // Render the food purchase page
+    //   res.render('food-purchase');
+    // });
+
     //get all bids for a user by email from db
     app.get('/my-purchase/:email', verifyToken, async(req, res) =>{
       const email = req.params.email;
@@ -314,7 +326,7 @@ app.get("/categories/:foodCategory", async (req, res) => {
 
 
     // Send a ping to confirm a successful connection
-    // await client.db("admin").command({ ping: 1 });
+    await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
