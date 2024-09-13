@@ -14,9 +14,8 @@ const corsOptions = {
       'http://localhost:5173', 
       'http://localhost:5174',
       'https://share-bite-ph11.web.app',
-      'https://share-bite-ph11.firebaseapp.com'
-
-      
+      'https://share-bite-ph11.firebaseapp.com',
+      'https://share-bite.netlify.app/'    
   ],
     credentials: true,
     optionSuccessStatus: 200,
@@ -199,12 +198,6 @@ async function run() {
        
     });
     
-    // Redirect to login page if user is not logged in
-    // app.get('/food-purchase', authenticateUser, (req, res) => {
-    //   // Render the food purchase page
-    //   res.render('food-purchase');
-    // });
-
     //get all bids for a user by email from db
     app.get('/my-purchase/:email', verifyToken, async(req, res) =>{
       const email = req.params.email;
@@ -321,7 +314,7 @@ app.get("/categories/:foodCategory", async (req, res) => {
 
 
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
