@@ -13,8 +13,8 @@ const corsOptions = {
     origin: [
       'http://localhost:5173', 
       'http://localhost:5174',
-      'https://share-bite-ph11.web.app/',
-      'https://share-bite-ph11.firebaseapp.com/'
+      'https://share-bite-ph11.web.app',
+      'https://share-bite-ph11.firebaseapp.com'
 
       
   ],
