@@ -11,9 +11,10 @@ const app = express();
 
 const corsOptions = {
     origin: [
-      'http://localhost:5173', 
-      'https://share-bite-ph11.web.app',
-      // 'https://share-bite-ph11.firebaseapp.com',     
+      'http://localhost:5173',
+      'https://share-bite-626ba.web.app',
+      'https://share-bite-626ba.firebaseapp.com',
+      'https://share-bite.netlify.app'
   ],
     credentials: true,
     optionSuccessStatus: 200,
